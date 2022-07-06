@@ -11,7 +11,7 @@ ATopDownShooterGameMode::ATopDownShooterGameMode()
 	PlayerControllerClass = ATopDownShooterPlayerController::StaticClass();
 
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/Character/TopDownCharacter"));
 	if (PlayerPawnBPClass.Class != nullptr)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
