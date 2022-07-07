@@ -11,6 +11,8 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 ATopDownShooterCharacter::ATopDownShooterCharacter()
 {
@@ -61,6 +63,8 @@ void ATopDownShooterCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
+	TickMovementInput();
+
 	if (CursorToWorld != nullptr)
 	{
 		if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
@@ -86,5 +90,43 @@ void ATopDownShooterCharacter::Tick(float DeltaSeconds)
 			CursorToWorld->SetWorldLocation(TraceHitResult.Location);
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
+	}
+}
+
+void ATopDownShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis("MoveForward", this, &ATopDownShooterCharacter::MoveAxisX);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ATopDownShooterCharacter::MoveAxisY);
+}
+
+void ATopDownShooterCharacter::MoveAxisX(float Value)
+{
+	ValueAxisX = Value;
+}
+
+void ATopDownShooterCharacter::MoveAxisY(float Value)
+{
+	ValueAxisY = Value;
+}
+
+void ATopDownShooterCharacter::TickMovementInput()
+{
+	AddMovementInput(FVector(1.0f, 0, 0), ValueAxisX);
+	AddMovementInput(FVector(0, 1.0f, 0), ValueAxisY);
+
+	APlayerController* MyController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+
+	if (!MyController) {
+		return;
+	}
+
+	FHitResult HitResult;
+	MyController->GetHitResultUnderCursorByChannel(ETraceTypeQuery::TraceTypeQuery1, false, HitResult);
+
+	if (HitResult.bBlockingHit) {
+		float LookAtYaw = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), HitResult.Location).Yaw;
+		SetActorRotation(FQuat(FRotator(0.0f, LookAtYaw, 0.0f)));
 	}
 }
