@@ -4,7 +4,7 @@
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
-#include "TopDownShooterCharacter.h"
+#include "Character/TopDownShooterCharacter.h"
 #include "Engine/World.h"
 
 ATopDownShooterPlayerController::ATopDownShooterPlayerController()
