@@ -29,14 +29,14 @@ void ATopDownShooterPlayerController::SetupInputComponent()
 	// set up gameplay key bindings
 	Super::SetupInputComponent();
 
-	InputComponent->BindAction("SetDestination", IE_Pressed, this, &ATopDownShooterPlayerController::OnSetDestinationPressed);
-	InputComponent->BindAction("SetDestination", IE_Released, this, &ATopDownShooterPlayerController::OnSetDestinationReleased);
+	//InputComponent->BindAction("SetDestination", IE_Pressed, this, &ATopDownShooterPlayerController::OnSetDestinationPressed);
+	//InputComponent->BindAction("SetDestination", IE_Released, this, &ATopDownShooterPlayerController::OnSetDestinationReleased);
 
 	// support touch devices 
-	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ATopDownShooterPlayerController::MoveToTouchLocation);
-	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATopDownShooterPlayerController::MoveToTouchLocation);
+	//InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ATopDownShooterPlayerController::MoveToTouchLocation);
+	//InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATopDownShooterPlayerController::MoveToTouchLocation);
 
-	InputComponent->BindAction("ResetVR", IE_Pressed, this, &ATopDownShooterPlayerController::OnResetVR);
+	//InputComponent->BindAction("ResetVR", IE_Pressed, this, &ATopDownShooterPlayerController::OnResetVR);
 }
 
 void ATopDownShooterPlayerController::OnResetVR()
